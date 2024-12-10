@@ -5,6 +5,7 @@ mod recognize_enemy;
 mod recognize_map;
 
 use image::BGRImage;
+
 use interface::{Interface, RecognizeEnemyInput, WrappedPixels};
 
 use std::ffi::{c_char, c_int, c_void};
