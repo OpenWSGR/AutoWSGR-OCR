@@ -3,6 +3,8 @@ mod interface;
 mod locator;
 mod recognize_enemy;
 mod recognize_map;
+#[cfg(test)]
+mod test;
 
 use image::BGRImage;
 use interface::{Interface, RecognizeEnemyInput, WrappedPixels};
