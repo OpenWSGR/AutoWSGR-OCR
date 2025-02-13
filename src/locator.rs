@@ -75,6 +75,10 @@ pub fn locate(image: &BGRImage) -> Vec<i32> {
             lst = -1;
         }
     }
+    if lst != -1 {
+        result.push(lst);
+        result.push(height as i32);
+    }
 
     result
 }
