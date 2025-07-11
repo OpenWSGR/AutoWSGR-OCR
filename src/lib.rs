@@ -12,9 +12,7 @@ use interface::{Interface, RecognizeEnemyInput, WrappedPixels};
 use std::ffi::{c_char, c_int, c_void};
 
 /// # Safety
-/// The output pointer must be NOT freed by caller
-///
-/// call free_arr to free the output string
+/// The input pointer must be freed by caller
 ///
 /// return -1 if failed
 ///
@@ -36,9 +34,7 @@ pub unsafe extern "C" fn locate(input: *const c_void, output: *mut c_int) -> c_i
 }
 
 /// # Safety
-/// The output pointer must be NOT freed by caller
-///
-/// call free_str to free the output string
+/// The input pointer must be freed by caller
 ///
 /// return -1 if failed
 ///
@@ -47,7 +43,6 @@ pub unsafe extern "C" fn locate(input: *const c_void, output: *mut c_int) -> c_i
 /// recognize them when enemys were spotted and return a string
 ///
 /// e.g. "DD SS NO NO NO NO"
-
 #[no_mangle]
 pub unsafe extern "C" fn recognize_enemy(input: *const c_void, output: *mut c_char) -> c_int {
     let input = RecognizeEnemyInput::from_raw(input);
@@ -61,9 +56,9 @@ pub unsafe extern "C" fn recognize_enemy(input: *const c_void, output: *mut c_ch
 }
 
 /// # Safety
-/// no return pointer. Safe
+/// The input pointer must be freed by caller
 ///
-/// return -1 if failed
+/// cant be failed, always return a character
 ///
 /// # Usage
 ///

@@ -1,13 +1,13 @@
 use image::{DynamicImage, ImageReader};
 
 use crate::{image::BGRImage, interface::WrappedPixels, locator::locate};
-struct ImageWarpper {
+struct BGRImageWarpper {
     width: usize,
     height: usize,
     channels: usize,
     pixels: Vec<u8>,
 }
-fn read_image(image: &DynamicImage) -> ImageWarpper {
+fn read_image(image: &DynamicImage) -> BGRImageWarpper {
     let width = image.width() as usize;
     let height = image.height() as usize;
     let mut pixels = image.to_rgb8().into_raw();
@@ -22,26 +22,31 @@ fn read_image(image: &DynamicImage) -> ImageWarpper {
             pixels[index + 2] = r;
         }
     }
-    ImageWarpper {
+    BGRImageWarpper {
         width,
         height,
         channels: 3,
         pixels,
     }
 }
-#[test]
-fn test_read_image() {
-    let image = ImageReader::open("tests/images/3.png")
-        .unwrap()
-        .decode()
-        .unwrap();
-    let image = read_image(&image);
-    let image = BGRImage::from_wrapped_pixels(WrappedPixels {
+fn to_bgr_image(image: &BGRImageWarpper) -> BGRImage {
+    BGRImage::from_wrapped_pixels(WrappedPixels {
         width: image.width,
         height: image.height,
         channels: image.channels,
         pixels: &image.pixels,
-    });
-    let result = locate(&image);
-    println!("{:?}", result);
+    })
+}
+#[test]
+fn test_read_image() {
+    for i in 1..=2 {
+        let image = ImageReader::open(format!("tests/images/{}.png", i))
+            .unwrap()
+            .decode()
+            .unwrap();
+        let image = read_image(&image);
+        let image = to_bgr_image(&image);
+        let result = locate(&image);
+        println!("{:?}", result);
+    }
 }
