@@ -40,13 +40,13 @@ fn to_bgr_image(image: &BGRImageWarpper) -> BGRImage {
 #[test]
 fn test_read_image() {
     for i in 1..=2 {
-        let image = ImageReader::open(format!("tests/images/{}.png", i))
+        let image = ImageReader::open(format!("tests/images/{i}.png"))
             .unwrap()
             .decode()
             .unwrap();
         let image = read_image(&image);
         let image = to_bgr_image(&image);
         let result = locate(&image);
-        println!("{:?}", result);
+        println!("{result:?}");
     }
 }

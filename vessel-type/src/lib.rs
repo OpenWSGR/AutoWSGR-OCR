@@ -115,7 +115,7 @@ mod tests {
     #[test]
     fn test_iter() {
         for i in VesselType::iter() {
-            println!("{:?}", i);
+            println!("{i:?}");
         }
     }
 }
