@@ -172,7 +172,7 @@ pub fn recognize_map(image: &BGRImage) -> char {
                     }
                 }
                 6 | 7 => 'G',
-                _ => '0',
+                _ => '\0',
             }
         } else {
             'H'
