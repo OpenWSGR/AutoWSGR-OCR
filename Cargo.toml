@@ -10,7 +10,7 @@ crate-type = ["cdylib"]
 
 [build-dependencies]
 vessel-type = { path = "./vessel-type" }
-strum = "0.26"
+strum = "0.27"
 
 [dependencies]
 vessel-type = { path = "./vessel-type" }
